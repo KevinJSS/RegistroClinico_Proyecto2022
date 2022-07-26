@@ -6,9 +6,12 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Models
     {
 
         [Key]
-        public int PatientId { get; set; }
+        public int id { get; set; }
 
-        [Key]
+        [Required]
+        public int PatientId { get; set; }
+        
+        [Required]
         public int MedicId { get; set; }
     }
 }
