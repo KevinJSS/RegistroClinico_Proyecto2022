@@ -1,42 +1,30 @@
-﻿@model IEnumerable<Specialization>
-
+﻿@{
+    ViewData["Title"] = "Especialidades";
+}
 
 <div class="container p3">
     <div class="row pt-4">
-        <div class="col-6">
-            <h3 class="text-primary">Especialidades Médicas </h3>
+        <div class="col-6 mb-5">
+            <h3 class="text-primary">Especialidades</h3>
         </div>
-         <div class="col-6 text-end">
-           <a asp-controller="Ailment" asp-action="Create" class="btn btn-primary">
-               <i class="bi bi-plus-circle-fill"></i>
-               &nbsp; Agregar nueva especialidad
-           </a>
+        <div class="col-6 text-end">
+            <a asp-controller="Specialization" asp-action="Upsert" class="btn btn-primary">
+                <i class="bi bi-plus-circle-fill"></i>
+                &nbsp; Agregar Especialidad
+            </a>
 
         </div>
     </div>
-<table class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var obj in Model)
-        {
+    <table id="tblData" class="table table-bordered table-stripped" style="width:100%;">
+        <thead>
             <tr>
-                <td width=25%>@obj.Name</td>
-                <td width="5%">
-                    <a asp-controller="MedicalSpeciality" asp-action="Edit"  asp-route-id="@obj.Id" class="btn btn-success" style="width:100px">
-                        <i class="bi bi-pencil-square"></i>&nbsp; Editar
-                        </a>
-                </td>
-                <td width="5%">
-                    <a asp-controller="MedicalSpeciality" asp-action="Delete"  asp-route-id="@obj.Id" class="btn btn-danger" style="width:150px">
-                        <i class="bi bi-trash-fill"></i>&nbsp; Eliminar
-                        </a>
-                </td>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+    </table>
 </div>
+
+@section Scripts{
+    <script src="~/js/specialization.js"></script>
+}
