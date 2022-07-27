@@ -8,5 +8,8 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews
 
         [ValidateNever]
         public List<Medic_Specialization> medic_Specializations { get; set; }
+
+        [ValidateNever]
+        public List<Specialization> specializations { get; set; }
     }
 }

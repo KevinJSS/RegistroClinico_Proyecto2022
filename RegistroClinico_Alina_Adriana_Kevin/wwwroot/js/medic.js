@@ -10,7 +10,7 @@ function loadDataTable() {
             "url": "/Admin/Medic/GetAll"
         },
         "columns": [
-            { "data": "name", "width": "60%" },
+            { "data": "fullName", "width": "60%" },
             {
                 "data": "id",
                 "render": function (data) {

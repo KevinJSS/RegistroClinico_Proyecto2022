@@ -1,0 +1,83 @@
+﻿@model RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews.MedicVM
+@{
+    ViewData["Title"] = "Agregar/Actualizar Médico";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+
+    <input asp-for="medic.Id" hidden />
+    <input asp-for="medic.PictureUrl" hidden />
+
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+
+                    @if (Model.medic.Id == 0)
+                    {
+                        <h2 class="text-primary">Nuevo Médico</h2>
+                    }
+                    else
+                    {
+                        <h2 class="text-primary">Editar Médico</h2>
+                    }
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <div class="mb-3">
+                    <label asp-for="medic.FullName"></label>
+                    <input asp-for="medic.FullName" class="form-control" />
+                    <span asp-validation-for="medic.FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="medic.LicenseNumber"></label>
+                    <input asp-for="medic.LicenseNumber" rows="3" class="form-control" />
+                    <span asp-validation-for="medic.LicenseNumber" class="text-danger"></span>
+                </div>
+
+
+                <div class="mb-3 col-6">
+                    <label asp-for="medic.PictureUrl"></label>
+                    <input id="uploadBox" type="file" name="file" class="form-control" />
+                    <span asp-validation-for="medic.PictureUrl" class="text-danger"></span>
+                </div>
+
+                <div class="text-end">
+                    <a asp-controller="Medic" asp-action="Index" asp-route-id="medic.Id" class="btn btn-secondary" style="width:100px">
+                        Regresar
+                    </a>
+
+                    @if (Model.medic.Id == 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary ml-2" style="width:100px">Guardar</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary" style="width:100px">Actualizar</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            @if (Model.medic.Id != 0)
+            {
+                <img src="~/@Model.medic.PictureUrl" width="100%" style="border-radius:5px; border=1px solid #bbb9b9; margin-top: 1.6rem;" />
+            }
+        </div>
+    </div>
+</form>
+
+<script>
+    function ValidateInput() {
+        if (document.getElementById("uploadBox").value == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please upload an Image !'
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
