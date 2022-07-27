@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace RegistroClinico_Alina_Adriana_Kevin.Controllers
 {
+    [Area("Patient")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

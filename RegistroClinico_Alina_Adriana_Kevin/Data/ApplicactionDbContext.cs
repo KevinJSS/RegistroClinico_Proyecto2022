@@ -1,18 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RegistroClinico_Alina_Adriana_Kevin.Models;
 
 namespace RegistroClinico_Alina_Adriana_Kevin.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
         /* DBSETs (MODELS) */
         public DbSet<Specialization> Specializations { get; set; }
-        
+
         public DbSet<Treatment> Treatments { get; set; }
-        
+
         public DbSet<Medicament> Medicaments { get; set; }
 
         public DbSet<Illness> Illnesses { get; set; }
@@ -34,5 +37,21 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Data
         public DbSet<ClinicalAnnotation> ClinicalAnnotations { get; set; }
 
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; } //Usuarios***
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+        }
     }
 }
+
+public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
+{
+    public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+    {
+        builder.Property(u => u.UserIdNumber).HasMaxLength(256);
+        builder.Property(u => u.UserFullName).HasMaxLength(256);
+    }
+}
+
