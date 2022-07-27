@@ -20,36 +20,36 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
             return View(patientList);
         }
 
-        ///* UPSERT GET */
-        //public IActionResult Upsert(int? id)
-        //{
-        //    Illness illness = new();
+        /* UPSERT GET */
+        public IActionResult Upsert(int? id)
+        {
+            Patient patient = new();
 
-        //    if (id != null || id > 0)
-        //    {
-        //        illness = _unitOfWork.Illness.GetFirstOrDefault(m => m.Id == id);
-        //    }
+            if (id != null || id > 0)
+            {
+                patient = _unitOfWork.Patient.GetFirstOrDefault(m => m.Id == id);
+            }
 
-        //    return View(illness);
-        //}
+            return View(patient);
+        }
 
-        ///* UPSERT POST */
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Upsert(Illness obj, IFormFile? file)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (obj.Id == 0)
-        //            _unitOfWork.Illness.Add(obj);
-        //        else
-        //            _unitOfWork.Illness.Update(obj);
+        /* UPSERT POST */
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Patient obj, IFormFile? file)
+        {
+            if (ModelState.IsValid)
+            {
+                if (obj.Id == 0)
+                    _unitOfWork.Patient.Add(obj);
+                else
+                    _unitOfWork.Patient.Update(obj);
 
-        //        _unitOfWork.Save();
-        //        TempData["success"] = "Padecimiento guardado correctamente";
-        //    }
-        //    return RedirectToAction("Index");
-        //}
+                _unitOfWork.Save();
+                TempData["success"] = "Paciente guardado correctamente";
+            }
+            return RedirectToAction("Index");
+        }
         #endregion
 
         #region API
@@ -65,19 +65,19 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
         //    //Filtrar por id
         //}
 
-        //[HttpDelete]
-        //public IActionResult Delete(int? id)
-        //{
-        //    var obj = _unitOfWork.Illness.GetFirstOrDefault(x => x.Id == id);
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var obj = _unitOfWork.Patient.GetFirstOrDefault(x => x.Id == id);
 
-        //    if (obj == null)
-        //        return Json(new { success = false, message = "Error al eliminar" });
+            if (obj == null)
+                return Json(new { success = false, message = "Error al eliminar" });
 
-        //    _unitOfWork.Illness.Remove(obj);
-        //    _unitOfWork.Save();
+            _unitOfWork.Patient.Remove(obj);
+            _unitOfWork.Save();
 
-        //    return Json(new { success = true, message = "Eliminado correctamente" });
-        //}
+            return Json(new { success = true, message = "Eliminado correctamente" });
+        }
         #endregion 
     }
 }
