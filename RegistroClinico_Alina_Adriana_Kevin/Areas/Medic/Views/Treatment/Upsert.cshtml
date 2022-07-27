@@ -1,0 +1,53 @@
+﻿@model RegistroClinico_Alina_Adriana_Kevin.Models.Treatment
+@{
+    ViewData["Title"] = "Agregar/Actualizar Tratamiento";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+
+    <input asp-for="Id" hidden />
+
+    <div class="row">
+        <div class="col-12">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+
+                    @if (Model.Id == 0)
+                    {
+                        <h2 class="text-primary">Nuevo Tratamiento</h2>
+                    }
+                    else
+                    {
+                        <h2 class="text-primary">Editar Tratamiento</h2>
+                    }
+                    <hr />
+                </div>
+
+                <div asp-validation-summary="All"></div>
+                <div class="mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                     <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="text-end">
+                    <a asp-controller="Treatment" asp-action="Index" class="btn btn-secondary" style="width:100px">
+                        Regresar
+                    </a>
+
+                    @if (Model.Id == 0)
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary ml-2" style="width:100px">Guardar</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary" style="width:100px">Actualizar</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
