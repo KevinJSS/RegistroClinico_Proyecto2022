@@ -82,7 +82,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images\medics");
+                    var uploads = Path.Combine(wwwRootPath, @"lib\images\medics");
                     var extension = Path.GetExtension(file.FileName);
 
                     if (obj.medic.PictureUrl != null)
@@ -98,7 +98,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
                     {
                         file.CopyTo(fileStreams);
                     }
-                    obj.medic.PictureUrl = @"images\medics" + fileName + extension;
+                    obj.medic.PictureUrl = @"lib\images\medics\" + fileName + extension;
                 }
 
 
