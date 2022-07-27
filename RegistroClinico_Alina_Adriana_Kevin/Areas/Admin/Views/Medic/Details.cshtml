@@ -10,7 +10,7 @@
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Medic" asp-action="Upsert" asp-route-id="@Model.medic.Id" asp-router class="btn btn-primary">
-                <i class="bi bi-plus-circle-fill"></i>
+                <i class="bi bi-pencil-square"></i>
                 &nbsp; Editar datos del médico
             </a>
         </div>
@@ -46,7 +46,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach (var obj in Model.specializations)
+                    @foreach (var obj in Model.addedSpecs)
                     {
                         <tr>
                             <td width="50%">@obj.Name</td>
@@ -57,9 +57,14 @@
         </div>
     </div>
     <div class="col-12 mt-4 text-end">
-        <a asp-controller="Medic" asp-action="Index" class="btn btn-secondary">
-            <i class="bi bi-plus-circle-fill"></i>
+        <div>
+            <a asp-controller="Medic" asp-action="Index" class="btn btn-secondary">
             &nbsp; Regresar a lista de médicos
+            </a>
+
+            <a asp-controller="Medic" asp-action="MedicSpecs" asp-route-id="@Model.medic.Id" class="btn btn-primary">
+            &nbsp; Agregar Especialidades
         </a>
+        </div>
     </div>
 </div>
