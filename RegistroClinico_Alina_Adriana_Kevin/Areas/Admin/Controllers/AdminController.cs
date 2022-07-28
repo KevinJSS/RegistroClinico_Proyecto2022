@@ -25,14 +25,14 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
         /* UPSERT GET */
         public IActionResult Upsert(int? id)
         {
-            Patient patient = new();
+            RegistroClinico_Alina_Adriana_Kevin.Models.Admin a = new();
 
             if (id != null || id > 0)
             {
-                patient = _unitOfWork.Patient.GetFirstOrDefault(m => m.Id == id);
+                a = _unitOfWork.Admin.GetFirstOrDefault(m => m.Id == id);
             }
 
-            return View(patient);
+            return View(a);
         }
 
         /* UPSERT POST */
