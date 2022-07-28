@@ -17,18 +17,77 @@
         <hr />
         <p class="text-black"><span style="font-weight:bold;">Nombre completo: </span>@Model.Patient.FullName</p>
         <p class="text-black"><span style="font-weight:bold;">Numero de cédula: </span>@Model.Patient.PatientId</p>
-        <p class="text-black"><span style="font-weight:bold;">Correo electrónico: </span>@Model.Patient.Email</p>
+        <p class="text-black mb-4"><span style="font-weight:bold;">Correo electrónico: </span>@Model.Patient.Email</p>
         <hr />
     </div>
 
-    <div class="col-12">
-        <h5 class="text-black mb-4">Padecimientos</h5>
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black col-6 mb-4">Padecimientos</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddIllness" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar padecimiento
+                </a>
+            </div>
+        </div>
+
         <hr />
         <table id="tblData" class="table table-bordered table-stripped" style="width:100%;">
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black col-6 mb-4">Tratamientos</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddTreatment" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar tratamiento
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData1" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black mb-4 col-6">Medicamentos</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddMedicament" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar medicamento
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData2" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

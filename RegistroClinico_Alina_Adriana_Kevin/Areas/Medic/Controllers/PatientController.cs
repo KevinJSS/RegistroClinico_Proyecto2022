@@ -75,7 +75,6 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
         public IActionResult GetPatientIllnesses(int? id)
         {
             Patient p = _unitOfWork.Patient.GetFirstOrDefault(i => i.Id == id);
-            var patientIllnesses = _unitOfWork.Patient.GetAll();
 
             List<Patient_Illness> pIllness = (List<Patient_Illness>) _unitOfWork.Patient_Illness.GetAll();
             _medicalRecord.IllnessList = new();
@@ -89,6 +88,42 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
                 }
             }
             return Json(new { data = _medicalRecord.IllnessList });
+        }
+
+        public IActionResult GetPatientTreatments(int? id)
+        {
+            Patient p = _unitOfWork.Patient.GetFirstOrDefault(i => i.Id == id);
+
+            List<Patient_Treatment> pTreatment = (List<Patient_Treatment>)_unitOfWork.Patient_Treatment.GetAll();
+            _medicalRecord.TreatmentList = new();
+
+
+            foreach (Patient_Treatment pt in pTreatment)
+            {
+                if (pt.PatientId == p.Id)
+                {
+                    _medicalRecord.TreatmentList.Add(_unitOfWork.Treatment.GetFirstOrDefault(i => i.Id == pt.TreatmentId));
+                }
+            }
+            return Json(new { data = _medicalRecord.TreatmentList });
+        }
+
+        public IActionResult GetPatientMedicaments(int? id)
+        {
+            Patient p = _unitOfWork.Patient.GetFirstOrDefault(i => i.Id == id);
+
+            List<Patient_Medicament> pMedicament = (List<Patient_Medicament>)_unitOfWork.Patient_Medicament.GetAll();
+            _medicalRecord.MedicamentList = new();
+
+
+            foreach (Patient_Medicament pM in pMedicament)
+            {
+                if (pM.PatientId == p.Id)
+                {
+                    _medicalRecord.MedicamentList.Add(_unitOfWork.Medicament.GetFirstOrDefault(i => i.Id == pM.MedicamentId));
+                }
+            }
+            return Json(new { data = _medicalRecord.MedicamentList });
         }
 
         [HttpDelete]
