@@ -174,15 +174,15 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var obj = _unitOfWork.Specialization.GetFirstOrDefault(x => x.Id == id);
+            var obj = _unitOfWork.Medic.GetFirstOrDefault(x => x.Id == id);
 
             if (obj == null)
-                return Json(new { success = false, message = "Error al eliminar especialidad" });
+                return Json(new { success = false, message = "Error al eliminar médico" });
 
-            _unitOfWork.Specialization.Remove(obj);
+            _unitOfWork.Medic.Remove(obj);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Especialidad eliminada correctamente" });
+            return Json(new { success = true, message = "Médico eliminado correctamente" });
         }
         #endregion
     }
