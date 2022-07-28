@@ -4,6 +4,8 @@ $(document).ready(function () {
     loadIllnessesTable();
     loadTreatmentsTable();
     loadMedicamentsTable();
+    loadMedicalHistoryTable();
+    loadTestResultsTable();
 });
 
 function loadIllnessesTable() {
@@ -20,7 +22,7 @@ function loadIllnessesTable() {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a onClick=Delete1('/Medic/Illness/Delete/${data}') class="btn btn-danger">
+                                <a onClick=Delete1('/Medic/Patient/Delete/${data}') class="btn btn-danger">
 							    Suspender</a>
                             </div>`
                 },
@@ -159,4 +161,55 @@ function Delete3(_url) {
             });
         }
     })
+}
+
+function loadMedicalHistoryTable() {
+    let pId = document.getElementById("PatientId").textContent;
+
+    dataTable = $('#tblData3').DataTable({
+        "ajax": {
+            "url": `/Medic/Patient/GetMedicalHistory?id=${pId}`
+        },
+        "columns": [
+            { "data": "name", "width": "40%" },
+            { "data": "date", "width": "30%" },
+            {
+                "data": "id",
+                "render": function (data) {
+                    return `<div class="text-center">
+                                <a href="/Medic/Patient/Annotation?id=${data}"
+                                   class="btn btn-secondary ml-2">
+                                   Ver más
+                                </a>
+                            </div>`
+                },
+                "width": "30%"
+            }
+        ]
+    });
+}
+
+function loadTestResultsTable() {
+    let pId = document.getElementById("PatientId").textContent;
+
+    dataTable = $('#tblData4').DataTable({
+        "ajax": {
+            "url": `/Medic/Patient/GetTestResults?id=${pId}`
+        },
+        "columns": [
+            { "data": "description", "width": "70%" },
+            {
+                "data": "id",
+                "render": function (data) {
+                    return `<div class="text-center">
+                                <a href="/Medic/Patient/TestResult?id=${data}"
+                                   class="btn btn-secondary ml-2">
+                                   Ver resultado
+                                </a>
+                            </div>`
+                },
+                "width": "30%"
+            }
+        ]
+    });
 }

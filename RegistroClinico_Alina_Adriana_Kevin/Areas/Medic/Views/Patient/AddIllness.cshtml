@@ -1,0 +1,25 @@
+﻿@model RegistroClinico_Alina_Adriana_Kevin.Models.Patient;
+@{
+    ViewData["Title"] = "Agregar Padecimiento";
+}
+<div class="container p3">
+    <p id="PatientId" style="font-size:1px; color:white;">@Model.Id</p>
+
+    <div class="row pt-4">
+        <div class="col-6 mb-5">
+            <h3 class="text-primary">Agregar padecimientos</h3>
+        </div>
+    </div>
+    <table id="tblData" class="table table-bordered table-stripped" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/AddIllness.js"></script>
+}

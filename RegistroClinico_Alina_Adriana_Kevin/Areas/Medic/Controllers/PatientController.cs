@@ -62,6 +62,28 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
             return View(_medicalRecord);
         }
 
+
+        public IActionResult AddIllness(int id) 
+        {
+            Patient p = _unitOfWork.Patient.GetFirstOrDefault(m => m.Id == id);
+            return View(p);
+        }
+
+        public IActionResult AddIllnessPost(string id)
+        {
+
+            string[] ids = id.Split("@");
+
+            Patient_Illness pi = new();
+            pi.PatientId = int.Parse(ids[1]);
+            pi.IllnessId = int.Parse(ids[0]);
+
+            _unitOfWork.Patient_Illness.Add(pi);
+
+            _unitOfWork.Save();
+            TempData["success"] = "Padecimiento agregado correctamente";
+            return RedirectToAction("index");
+        }
         #endregion
 
         #region API
@@ -124,6 +146,42 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
                 }
             }
             return Json(new { data = _medicalRecord.MedicamentList });
+        }
+
+        public IActionResult GetMedicalHistory(int? id)
+        {
+            Patient p = _unitOfWork.Patient.GetFirstOrDefault(i => i.Id == id);
+
+            List<ClinicalAnnotation> cAnnot = (List<ClinicalAnnotation>)_unitOfWork.ClinicalAnnotation.GetAll();
+            _medicalRecord.MedicalHistory = new();
+
+
+            foreach (ClinicalAnnotation c in cAnnot)
+            {
+                if (c.PatientId == p.Id)
+                {
+                    _medicalRecord.MedicalHistory.ClinicalAnnotations.Add(_unitOfWork.ClinicalAnnotation.GetFirstOrDefault(i => i.Id == c.Id));
+                }
+            }
+            return Json(new { data = _medicalRecord.MedicalHistory.ClinicalAnnotations });
+        }
+
+        public IActionResult GetTestResults(int? id)
+        {
+            Patient p = _unitOfWork.Patient.GetFirstOrDefault(i => i.Id == id);
+
+            List<TestResult> tResults = (List<TestResult>)_unitOfWork.TestResult.GetAll();
+            _medicalRecord.TestResultList = new();
+
+
+            foreach (TestResult t in tResults)
+            {
+                if (t.PatientId == p.Id)
+                {
+                    _medicalRecord.TestResultList.Add(_unitOfWork.TestResult.GetFirstOrDefault(i => i.Id == t.Id));
+                }
+            }
+            return Json(new { data = _medicalRecord.TestResultList });
         }
 
         [HttpDelete]

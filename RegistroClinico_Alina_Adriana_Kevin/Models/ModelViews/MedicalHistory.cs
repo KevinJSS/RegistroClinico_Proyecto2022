@@ -6,12 +6,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews
 {
     public class MedicalHistory
     {
-        public int PatientId { get; set; }
-
-        //[ValidateNever]
-        //public IdentityUser Patient { get; set; }
-
         [ValidateNever]
-        public IEnumerable<SelectListItem> ClinicalAnnotations { get; set; }
+        public List<ClinicalAnnotation> ClinicalAnnotations { get; set; } = new();
     }
 }
