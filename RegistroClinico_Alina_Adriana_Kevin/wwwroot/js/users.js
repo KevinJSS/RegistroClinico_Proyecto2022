@@ -12,7 +12,7 @@ function loadAdmins() {
             "url": "/Admin/Admin/GetAll"
         },
         "columns": [
-            { "data": "identification", "width": "30%" },
+            { "data": "identification", "width": "20%" },
             { "data": "name", "width": "30%" },
             { "data": "email", "width": "30%" },
             {
@@ -24,7 +24,7 @@ function loadAdmins() {
 							    <i class="bi bi-trash"></i>Eliminar</a>
                             </div>`
                 },
-                "width": "30%"
+                "width": "20%"
             }
         ]
     });
@@ -68,8 +68,8 @@ function loadMedics() {
             "url": "/Admin/Medic/GetAll"
         },
         "columns": [
-            { "data": "fullName", "width": "30%" },
-            { "data": "licenseNumber", "width": "30%" },
+            { "data": "fullName", "width": "40%" },
+            { "data": "licenseNumber", "width": "40%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -78,7 +78,7 @@ function loadMedics() {
 							    <i class="bi bi-trash"></i>Eliminar</a>
                             </div>`
                 },
-                "width": "30%"
+                "width": "20%"
             }
         ]
     });
@@ -121,7 +121,7 @@ function loadPatients() {
             "url": "/Medic/Patient/GetAll"
         },
         "columns": [
-            { "data": "fullName", "width": "30%" },
+            { "data": "fullName", "width": "80%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -131,7 +131,7 @@ function loadPatients() {
 							    <i class="bi bi-trash"></i>Eliminar</a>
                             </div>`
                 },
-                "width": "30%"
+                "width": "20%"
             }
         ]
     });
