@@ -4,23 +4,22 @@ $(document).ready(function () {
     loadDataTable();
 });
 
-function loadDataTable() {
+function loadDataTable(id) {
+    let pId = document.getElementById("PatientId").textContent;
+
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/Medic/Patient/GetAll"
+            "url": `/Medic/Patient/GetPatientIllnesses?id=${pId}`
         },
         "columns": [
-            { "data": "fullName", "width": "30%" },
+            { "data": "name", "width": "30%" },
+            { "data": "description", "width": "40%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/Medic/Patient/MedicalRecordView?id=${data}"
-                                   class="btn btn-secondary ml-2"> 
-							    <i class="bi bi-pencil-square"></i>Expediente</a>
-
-							    <a onClick=Delete('/Medic/Patient/Delete/${data}') class="btn btn-danger">
-							    <i class="bi bi-trash"></i>Eliminar</a>
+                                <a onClick=Delete('/Medic/Illness/Delete/${data}') class="btn btn-danger">
+							    Suspender</a>
                             </div>`
                 },
                 "width": "30%"
@@ -28,9 +27,10 @@ function loadDataTable() {
         ]
     });
 }
+
 function Delete(_url) {
     Swal.fire({
-        title: '¿Estás seguro(a) de eliminar este paciente?',
+        title: '¿Estás seguro(a) de suspender este padecimiento?',
         text: "¡No podrás revertir los cambios!",
         icon: 'warning',
         showCancelButton: true,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RegistroClinico_Alina_Adriana_Kevin.Models;
+using RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews;
 using RegistroClinico_Alina_Adriana_Kevin.Repository.IRepository;
 
 namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
@@ -9,10 +10,12 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
     {
         #region HTTP GET POST
         private readonly IUnitOfWork _unitOfWork;
+        private MedicalRecord _medicalRecord;
 
         public PatientController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _medicalRecord = new();
         }
         public IActionResult Index()
         {
@@ -50,6 +53,15 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        /* MEDICAL RECORD */
+        public IActionResult MedicalRecordView(int id)
+        {
+            _medicalRecord.Patient = new();
+            _medicalRecord.Patient = _unitOfWork.Patient.GetFirstOrDefault(p => p.Id == id);
+            return View(_medicalRecord);
+        }
+
         #endregion
 
         #region API
@@ -60,10 +72,24 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Medic.Controllers
             return Json(new { data = patientList });
         }
 
-        //public IActionResult GetPatientMedicaments(int id) 
-        //{
-        //    //Filtrar por id
-        //}
+        public IActionResult GetPatientIllnesses(int? id)
+        {
+            Patient p = _unitOfWork.Patient.GetFirstOrDefault(i => i.Id == id);
+            var patientIllnesses = _unitOfWork.Patient.GetAll();
+
+            List<Patient_Illness> pIllness = (List<Patient_Illness>) _unitOfWork.Patient_Illness.GetAll();
+            _medicalRecord.IllnessList = new();
+
+
+            foreach (Patient_Illness pi in pIllness)
+            {
+                if (pi.PatientId == p.Id)
+                {
+                    _medicalRecord.IllnessList.Add(_unitOfWork.Illness.GetFirstOrDefault(i => i.Id == pi.IllnessId));
+                }
+            }
+            return Json(new { data = _medicalRecord.IllnessList });
+        }
 
         [HttpDelete]
         public IActionResult Delete(int? id)
