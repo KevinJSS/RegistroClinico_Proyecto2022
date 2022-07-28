@@ -5,19 +5,19 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews
 {
     public class MedicalRecord
     {
-        //public IdentityUser Patient { get; set; }
+        public Patient Patient { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> IllnessList { get; set; }
+        public List<Illness> IllnessList { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> TreatmentList { get; set; }
+        public List<Treatment> TreatmentList { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> MedicamentList { get; set; }
+        public List<Medicament> MedicamentList { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> TestResultList { get; set; }
+        public List<TestResult> TestResultList { get; set; }
 
         public MedicalHistory MedicalHistory { get; set; }
     }

@@ -12,6 +12,8 @@
 
         IMedic_SpecRepository Medic_Specialization { get; }
 
+        IPatientRepository Patient { get; }
+
         IPatient_IllnessRepository Patient_Illness { get; }
 
         IPatient_MedicRepository Patient_Medic { get; }
