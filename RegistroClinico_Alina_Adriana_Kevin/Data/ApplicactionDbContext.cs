@@ -24,6 +24,8 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Data
 
         public DbSet<Medic_Specialization> Medic_Specializations { get; set; }
 
+        public DbSet<Patient> Patients { get; set; }
+
         public DbSet<Patient_Illness> Patient_Illnesses { get; set; }
 
         public DbSet<Patient_Medic> Patient_Medics { get; set; }
@@ -35,6 +37,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Data
         public DbSet<TestResult> TestResults { get; set; }
 
         public DbSet<ClinicalAnnotation> ClinicalAnnotations { get; set; }
+        public DbSet<Admin> Admins { get; set; }
 
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; } //Usuarios***
 

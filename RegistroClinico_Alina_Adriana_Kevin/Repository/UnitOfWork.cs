@@ -16,6 +16,9 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Repository
         public IMedicRepository Medic { get; private set; }
 
         public IMedic_SpecRepository Medic_Specialization { get; private set; }
+
+        public IPatientRepository Patient { get; private set; }
+
         public IPatient_IllnessRepository Patient_Illness { get; private set; }
 
         public IPatient_MedicRepository Patient_Medic { get; private set; }
@@ -30,6 +33,8 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Repository
 
         public ITreatmentRepository Treatment { get; private set; }
 
+        public IAdminRepository Admin { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -38,6 +43,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Repository
             Medicament = new MedicamentRepository(_db);
             Medic = new MedicRepository(_db);
             Medic_Specialization = new Medic_SpecRepository(_db);
+            Patient = new PatientRepository(_db);
             Patient_Illness = new Patient_IllnessRepository(_db);
             Patient_Medic = new Patient_MedicRepository(_db);
             Patient_Medicament = new Patient_MedicamentRepository(_db);
@@ -45,6 +51,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Repository
             Specialization = new SpecRepository(_db);
             TestResult = new TestResultRepository(_db);
             Treatment = new TreatmentRepository(_db);
+            Admin = new AdminRepository(_db);
         }
 
         public void Save()

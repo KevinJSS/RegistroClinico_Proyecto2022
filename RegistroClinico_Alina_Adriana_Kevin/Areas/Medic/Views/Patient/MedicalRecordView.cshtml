@@ -1,0 +1,156 @@
+﻿@model RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews.MedicalRecord
+@{
+    ViewData["Title"] = "Expediente Médico";
+}
+
+<div class="row">
+    <p id="PatientId" style="font-size:1px; color:white;">@Model.Patient.Id</p>
+
+    <div class="row pt-4">
+        <div class="col-6 mb-3">
+            <h3 class="text-primary">Expendiente Médico</h3>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <h5 class="text-black mb-4">Información del Paciente</h5>
+        <hr />
+        <p class="text-black"><span style="font-weight:bold;">Nombre completo: </span>@Model.Patient.FullName</p>
+        <p class="text-black"><span style="font-weight:bold;">Numero de cédula: </span>@Model.Patient.PatientId</p>
+        <p class="text-black mb-4"><span style="font-weight:bold;">Correo electrónico: </span>@Model.Patient.Email</p>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black col-6 mb-4">Padecimientos</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddIllness" asp-route-id="@Model.Patient.Id" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar padecimiento
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black col-6 mb-4">Tratamientos</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddTreatment" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar tratamiento
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData1" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black mb-4 col-6">Medicamentos</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddMedicament" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar medicamento
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData2" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black mb-4 col-6">Historial Médico</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddAnnotation" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar nota
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData3" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 mb-3">
+        <div class="d-flex">
+            <h5 class="text-black mb-4 col-6">Resultado de Exámenes</h5>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Patient" asp-action="AddTestResult" class="btn btn-primary">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    &nbsp; Agregar resultado
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tblData4" class="table table-bordered table-stripped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <hr />
+    </div>
+
+    <div class="col-12 mt-4 text-end">
+        <a asp-controller="Patient" asp-action="Index" class="btn btn-secondary">
+            Regresar
+        </a>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/medicalRecord.js"></script>
+}

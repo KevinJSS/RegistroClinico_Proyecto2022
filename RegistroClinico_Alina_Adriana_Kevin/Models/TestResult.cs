@@ -17,6 +17,6 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Models
 
         [ValidateNever]
         [Display(Name = "Ruta del Archivo")]
-        public int FileUrl { get; set; }
+        public string FileUrl { get; set; }
     }
 }
