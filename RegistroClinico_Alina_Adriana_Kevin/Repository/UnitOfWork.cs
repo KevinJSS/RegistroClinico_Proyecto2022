@@ -33,6 +33,8 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Repository
 
         public ITreatmentRepository Treatment { get; private set; }
 
+        public IAdminRepository Admin { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
@@ -49,6 +51,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Repository
             Specialization = new SpecRepository(_db);
             TestResult = new TestResultRepository(_db);
             Treatment = new TreatmentRepository(_db);
+            Admin = new AdminRepository(_db);
         }
 
         public void Save()

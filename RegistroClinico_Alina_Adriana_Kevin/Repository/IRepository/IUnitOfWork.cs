@@ -28,6 +28,8 @@
 
         ITreatmentRepository Treatment { get; }
 
+        IAdminRepository Admin { get; }
+
         void Save();
     }
 }
