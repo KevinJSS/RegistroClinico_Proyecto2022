@@ -11,11 +11,13 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
         #region HTTP GET POST
         private readonly IUnitOfWork _unitOfWork;
         private IWebHostEnvironment _hostEnvironment;
+        private MedicVM _vm;
 
         public MedicController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _hostEnvironment = hostEnvironment;
+            _vm = new();
         }
 
         public IActionResult Index()
@@ -30,6 +32,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
 
             medicVM.medic = _unitOfWork.Medic.GetFirstOrDefault(u => u.Id == id);
             medicVM.medic_Specializations = new();
+            medicVM.addedSpecs = new();
 
             IEnumerable<Medic_Specialization> medicSpecList = _unitOfWork.Medic_Specialization.GetAll();
 
@@ -38,21 +41,13 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
             {
                 if (int.Parse(ms.MedicId) == id)
                 {
+                    int spId = int.Parse(ms.SpecializationId);
                     medicVM.medic_Specializations.Add(ms);
+                    medicVM.addedSpecs.Add(_unitOfWork.Specialization.GetFirstOrDefault(u => u.Id == spId));
                 }
             }
 
-            /* SPECIALIZATION */
-            medicVM.specializations = new();
-            foreach (Medic_Specialization sp in medicVM.medic_Specializations)
-            {
-                if (int.Parse(sp.SpecializationId) == id)
-                {
-                    int spId = int.Parse(sp.SpecializationId);
-                    medicVM.specializations.Add(_unitOfWork.Specialization.GetFirstOrDefault(u => u.Id == spId));
-                }
-            }
-
+            _vm = medicVM;
             return View(medicVM);
         }
 
@@ -70,7 +65,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
             return View(medicVM);
         }
 
-
+        /* UPSERT POST */
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(MedicVM obj, IFormFile? file)
@@ -115,6 +110,49 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        /* MedicSpecs GET */
+        public IActionResult MedicSpecs(int id)
+        {
+            MedicVM medicVM = new();
+            medicVM.medic = new();
+            medicVM.medic = _unitOfWork.Medic.GetFirstOrDefault(m => m.Id == id);
+
+            medicVM.specializations = new();
+            medicVM.medic_Specializations = new();
+            medicVM.addedSpecs = new();
+            
+            medicVM.specializations = (List<Specialization>)_unitOfWork.Specialization.GetAll();
+            IEnumerable<Medic_Specialization> medicSpecList = _unitOfWork.Medic_Specialization.GetAll();
+
+            /* MEDIC SPECIALIZATIONS */
+            foreach (Medic_Specialization ms in medicSpecList)
+            {
+                if (int.Parse(ms.MedicId) == id)
+                {
+                    int spId = int.Parse(ms.SpecializationId);
+                    medicVM.medic_Specializations.Add(ms);
+
+                    medicVM.addedSpecs.Add(_unitOfWork.Specialization.GetFirstOrDefault(u => u.Id == spId));
+                    medicVM.specializations.Remove(_unitOfWork.Specialization.GetFirstOrDefault(u => u.Id == spId));  
+                }
+            }            
+
+            return View(medicVM);
+        }
+
+        /* MedicSpecs POST */
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult MedicSpecsPOST(int? id)
+        {
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult AddSpec(int? specId) 
+        {
+            return RedirectToAction("Index");
+        }
         #endregion
 
         #region API
@@ -122,6 +160,15 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Areas.Admin.Controllers
         {
             var medicList = _unitOfWork.Medic.GetAll();
             return Json(new { data = medicList });
+        }
+
+        public IActionResult GetMedicVM(int medicId)
+        {
+            var medicList = _unitOfWork.Medic.GetAll();
+            MedicVM medicVM = new();
+            medicVM.specializations = (List<Specialization>)_unitOfWork.Specialization.GetAll();
+            medicVM.medic = new();
+            return Json(new { data = medicVM });
         }
 
         [HttpDelete]

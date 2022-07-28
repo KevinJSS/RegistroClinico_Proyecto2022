@@ -37,6 +37,7 @@ namespace RegistroClinico_Alina_Adriana_Kevin.Data
         public DbSet<TestResult> TestResults { get; set; }
 
         public DbSet<ClinicalAnnotation> ClinicalAnnotations { get; set; }
+        public DbSet<Admin> Admins { get; set; }
 
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; } //Usuarios***
 

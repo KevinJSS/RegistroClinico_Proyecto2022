@@ -1,0 +1,111 @@
+﻿@model RegistroClinico_Alina_Adriana_Kevin.Models.ModelViews.MedicVM
+@{
+    ViewData["Title"] = "Especialidades del médico";
+}
+
+<div class="row">
+    <div class="row pt-4">
+        <div class="col-6 mb-3">
+            <h3 class="text-primary">Asignación de Especialidades</h3>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="p-3 mt-2 row">
+            <img src="~/@Model.medic.PictureUrl" width="100%" style="border-radius:10px; border=1px solid #bbb9b9; margin-top: 1.6rem;" />
+        </div>
+    </div>
+
+    <div class="col-md-10 my-auto">
+        <h4 class="text-black">@Model.medic.FullName</h4>
+        <p class="text-black"><span style="font-weight:bold;">Numero de licencia: </span>@Model.medic.LicenseNumber</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3 class="text-primary">Especialidades agregadas</h3>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="p-3 row">
+            <table class="table text-center" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Especialidades
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var obj in Model.addedSpecs)
+                    {
+                        <tr>
+                            <td width="50%">@obj.Name</td>
+                            <td width="50%" class="text-center">
+                                <a asp-controller="Medic" asp-action="DeleteSpec" asp-route-id="@obj.Id" class="btn btn-danger">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3 class="text-primary">Especialidades para Agregar</h3>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="p-3 row">
+            <table class="table text-center" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Especialidades
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var obj in Model.specializations)
+                    {
+                        <tr>
+                            <td width="50%">@obj.Name</td>
+                            <td width="50%" class="text-center">
+                                <a asp-controller="Medic" asp-action="AddSpec" asp-route-id="@obj.Id" class="btn btn-primary">
+                                    Agregar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-12 mt-4 text-end">
+        <div>
+            <a asp-controller="Medic" asp-action="Index" class="btn btn-secondary">
+                &nbsp; Regresar a lista de médicos
+            </a>
+
+            <a asp-controller="Medic" asp-action="MedicSpecsPOST" class="btn btn-primary">
+                &nbsp; Actualizar médico
+            </a>
+        </div>
+    </div>
+</div>
